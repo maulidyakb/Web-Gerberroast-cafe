@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .popup-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.4);
+          display: none;
+          justify-content: center;
+          align-items: center;
+          z-index: 999;
+          animation: fadeIn 0.3s ease-in-out;
+        }
+    
+         .popup-container {
+         position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .popup-container.hidden {
+            display: none;
+        }
+
+        .popup-box {
+            background: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 400px;
+            animation: fadeIn 0.3s ease;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px; right: 15px;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        @keyframes fadeIn {
+        from { transform: scale(0.9); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+        }
+ 
+        .popup-content {
+          background: white;
+          padding: 30px;
+          border-radius: 15px;
+          width: 90%;
+          max-width: 400px;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+          animation: slideDown 0.4s ease-in-out;
+          position: relative;
+        }
+      
+        .popup-content h2 {
+          margin-bottom: 20px;
+          color: #c45fa6;
+          text-align: center;
+        }
+      
+        .popup-content input {
+          width: 100%;
+          padding: 12px;
+          margin-bottom: 15px;
+          border: 1px solid #ccc;
+          border-radius: 8px;
+        }
+      
+        .popup-content button {
+          width: 100%;
+          padding: 12px;
+          background-color: #fd5e85;
+          color: white;
+          border: none;
+          border-radius: 25px;
+          font-weight: bold;
+        }
+      
+        .popup-close {
+          position: absolute;
+          top: 10px;
+          right: 15px;
+          font-size: 20px;
+          cursor: pointer;
+        }
+      
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        /* Voucher Popup Specific Styles */
+        .voucher-popup {
+            text-align: center;
+        }
+
+        .voucher-popup h2 {
+            margin-bottom: 10px;
+            color: #c45fa6;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+        }
+
+        .voucher-popup p {
+            color: #555;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .voucher-popup input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .voucher-popup button {
+            width: 100%;
+            padding: 12px;
+            background-color: #fd5e85;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .voucher-popup button:hover {
+            background-color: #ff8da5;
+        }
+
+        .voucher-popup .success-message {
+            color: #AD68A9;
+            font-weight: bold;
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+      
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerberroast Cafe | Where Bloom Meets Brew</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #FFD3E2;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* Header Styles */
+    header {
+      position: relative;
+      padding: 20px 0;
+    }
+    
+    .logo-container {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: #AD68A9;
+      text-decoration: none;
+    }
+    
+    .top-right-nav {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+    }
+    
+    .btn {
+      background-color: #AD68A9;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-family: 'Poppins', sans-serif;
+      display: inline-block;
+      text-align: center;
+      transition: background-color 0.3s ease;
+    }
+    
+    .btn:hover {
+      background-color: #C187BE;
+    }
+    
+    .btn-auth {
+      background-color: #FB607F;
+      color: white;
+    }
+    
+    .btn-auth:hover {
+      background-color: #ff8da5;
+    }
+    
+    /* Hero Section */
+    .hero-section {
+      height: 80vh;
+      background-image: url('/api/placeholder/1200/800');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      border-radius: 15px;
+      margin: 0 20px;
+      overflow: hidden;
+    }
+    
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      color: white;
+    }
+    
+    .overlay h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    
+    .overlay p {
+      font-size: 1.4rem;
+      max-width: 800px;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+    }
+    
+    .cta-buttons {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    /* Featured Section */
+    .featured-section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: #AD68A9;
+      margin-bottom: 40px;
+    }
+    
+    .featured-items {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    
+    .featured-item {
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      width: 300px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .featured-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .featured-img {
+      height: 200px;
+      background-color: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .featured-content {
+      padding: 20px;
+    }
+    
+    .featured-content h3 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 10px;
+      color: #AD68A9;
+    }
+    
+    .featured-content p {
+      margin-bottom: 15px;
+      color: #666;
+    }
+    
+    .featured-price {
+      font-weight: 500;
+      color: #FB607F;
+      font-size: 1.2rem;
+    }
+    
+    /* About Summary */
+    .about-summary {
+      background-color: white;
+      padding: 60px 20px;
+      text-align: center;
+      border-radius: 15px;
+      margin: 0 20px 60px;
+    }
+    
+    .about-summary p {
+      max-width: 800px;
+      margin: 0 auto 30px;
+      color: #666;
+      font-size: 1.1rem;
+    }
+    
+        /* === PROMO SECTION === */
+    .promo-section {
+    background: linear-gradient(to bottom right, #fff1f6, #ffe3f0);
+    padding: 60px 20px;
+    text-align: center;
+    border-radius: 20px;
+    margin: 60px 20px;
+    box-shadow: 0 10px 30px rgba(255, 105, 180, 0.1);
+    animation: fadeIn 1s ease-in-out;
+    }
+
+    .promo-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 40px;
+    }
+
+    .promo-card {
+    background-color: white;
+    padding: 25px 20px;
+    border-radius: 20px;
+    width: 280px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: slideUp 0.8s ease;
+    }
+
+    .promo-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .promo-card h3 {
+    color: #AD68A9;
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 10px;
+    }
+
+    .promo-card p {
+    color: #555;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    }
+
+    .promo-price {
+    font-size: 1.2rem;
+    color: #FB607F;
+    font-weight: bold;
+    }
+
+    .promo-original {
+    font-size: 0.9rem;
+    color: #aaa;
+    text-decoration: line-through;
+    margin-left: 6px;
+    }
+
+    @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+    }
+
+    
+    /* Footer */
+    footer {
+      background-color: #AD68A9;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      margin-top: 60px;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 30px;
+    }
+    
+    .footer-section {
+      flex: 1;
+      min-width: 250px;
+    }
+    
+    .footer-section h3 {
+      margin-bottom: 20px;
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .contact-info p {
+      margin-bottom: 10px;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    
+    .social-link {
+      width: 40px;
+      height: 40px;
+      background-color: white;
+      color: #AD68A9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    
+    .social-link:hover {
+      background-color: #FB607F;
+      color: white;
+      transform: translateY(-5px);
+    }
+    
+    .footer-bottom {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    /* Navigation */
+    .main-nav {
+      background-color: white;
+      padding: 15px 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+    
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: #AD68A9;
+      text-decoration: none;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    
+    .nav-links a:hover {
+      color: #FB607F;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .overlay h1 {
+        font-size: 2.5rem;
+      }
+      
+      .overlay p {
+        font-size: 1.1rem;
+      }
+      
+      .featured-items {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="top-right-nav">
+        <a href="#" class="btn btn-auth" onclick="openPopup('login')">Log in</a>
+        <a href="#" class="btn btn-auth" onclick="openPopup('signup')">Sign up</a>        
+    </div>
+    
+    <div class="logo-container">
+      <a href="index.html" class="logo">Gerberroast Café</a>
+    </div>
+  </header>
+  
+  <nav class="main-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">Gerberroast</a>
+      <ul class="nav-links">
+        <li><a href="coffee-menu.html">Coffee & Drinks</a></li>
+        <li><a href="cheesecake-menu.html">Cheesecakes</a></li>
+        <li><a href="flower-shop.html">Flower Shop</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <main>
+    <section class="hero-section">
+      <div class="overlay">
+        <h1>Welcome to Gerberroast Café</h1>
+        <p>Where Bloom Meets Brew — Experience the harmony of artisan coffee and floral elegance</p>
+        <div class="cta-buttons">
+        </div>
+      </div>
+    </section>
+    
+    <section class="featured-section">
+      <h2 class="section-title">Our Signature Offerings</h2>
+      <div class="featured-items">
+        <div class="featured-item">
+          <div class="featured-img">
+            <img src="images/lavender honey.jpg" alt="Coffee" />
+          </div>
+          <div class="featured-content">
+            <h3>Lavender Honey Latte</h3>
+            <p>Our signature blend infused with lavender essence for a floral, aromatic experience.</p>
+            <p class="featured-price">Rp 38.000</p>
+          </div>
+        </div>
+        
+        <div class="featured-item">
+          <div class="featured-img">
+            <img src="images/roses.jpg" alt="Cheesecake" />
+          </div>
+          <div class="featured-content">
+            <h3>Rose Petal Cheesecake</h3>
+            <p>Delicate rose-infused cheesecake topped with crystallized rose petals.</p>
+            <p class="featured-price">Rp 45.000</p>
+          </div>
+        </div>
+        
+        <div class="featured-item">
+          <div class="featured-img">
+            <img src="images/seosenal.jpg" alt="Flower Bouquet" />
+          </div>
+          <div class="featured-content">
+            <h3>Seasonal Bloom Bouquet</h3>
+            <p>Handcrafted arrangement featuring seasonal flowers and greenery.</p>
+            <p class="featured-price">Rp 150.000</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="about-summary">
+      <h2 class="section-title">Sip, Savor, Bloom</h2>
+      <p>Immerse yourself in our unique symphony of flavors and fragrances. Each cup at Gerberroast is crafted with passion, paired perfectly with our signature cheesecakes and surrounded by nature's most beautiful blooms.</p>
+      <p>Join us in our cozy vintage-inspired space where every visit becomes a tranquil escape from the everyday hustle.</p>
+      <a href="about.html" class="btn">Our Story</a>
+    </section>
+    
+    <section class="promo-section">
+      <h2 class="section-title">🌸 Promo Spesial Bulan Ini! 🌸</h2>
+      <div class="promo-cards">
+        <div class="promo-card">
+          <h3>Sweet love Time</h3>
+          <p>Ayoo Grebest!! buruan beli 3 varian cheesecake kalian akan mendapatkan Single Stem Flowers wiht full love</p>
+          <p class="promo-price">Penawaran Terbatas!</p>
+          <a href="cheesecake-menu.html" class="btn">Lihat Menu</a>
+        </div>
+        <div class="promo-card">
+          <h3>Diskon 20% untuk Pengunjung Baru</h3>
+          <p>Cukup tunjukkan kode promo: <strong>BLOOM20</strong></p>
+          <p class="promo-price">*Berlaku untuk min. pembelian Rp 50.000</p>
+          <a href="#" class="btn" onclick="openVoucherPopup()">Klaim Diskon</a>
+        </div>
+        <div class="promo-card">
+          <h3>Happy Hour Bloom Time</h3>
+          <p>Setiap hari 3-5 sore, Dapatkan 1 Gratis 1 untuk semua minuman bunga!</p>
+          <p class="promo-price">Promo Terbatas!</p>
+          <a href="coffee-menu.html" class="btn">Lihat Menu</a>
+        </div>
+      </div>
+    </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Gerberroast Café</h3>
+        <p>Where Bloom Meets Brew</p>
+        <p>Bringing together the finest coffee, delightful cheesecakes, and beautiful flowers.</p>
+      </div>
+      
+      <div class="footer-section contact-info">
+        <h3>Visit Us</h3>
+        <p>Jl. Tunjungan No.16</p>
+        <p>Surabaya, Indonesia</p>
+        <p>Phone: +62 123-4567-8910</p>
+        <p>Email: <a href="mailto:hello@gerberroastcafe.com">hello@gerberroastcafe.com</a></p>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Opening Hours</h3>
+        <p>Monday - Friday: 9:00 AM - 10:00 PM</p>
+        <p>Saturday - Sunday: 9:00 AM - 12:00 AM</p>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Connect With Us</h3>
+        <div class="social-links">
+          <a href="#" class="social-link">IG</a>
+          <a href="#" class="social-link">TW</a>
+          <a href="#" class="social-link">YT</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2025 Gerberroast Café. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Popup container for login/signup -->
+  <div id="popupContainer" class="popup-container hidden">
+    <div class="popup-box">
+        <span class="close-btn" onclick="closePopup()">×</span>
+        <div id="popupContent">Loading...</div>
+    </div>
+  </div>
+
+  <!-- Voucher Popup -->
+  <div id="voucherPopup" class="popup-container hidden">
+    <div class="popup-box voucher-popup">
+        <span class="close-btn" onclick="closeVoucherPopup()">×</span>
+        <h2>Klaim Diskon 20%</h2>
+        <p>Masukkan email Anda untuk mendapatkan kode promo BLOOM20</p>
+        <input type="email" id="voucherEmail" placeholder="Masukkan email Anda" required>
+        <button onclick="claimVoucher()">Klaim Sekarang</button>
+        <p class="success-message" id="successMessage">Kode promo BLOOM20 telah dikirim ke email Anda!</p>
+    </div>
+  </div>
+
+  <!-- Login Popup -->
+  <div id="loginPopup" class="popup-container hidden">
+    <div class="popup-box">
+      <span class="close-btn" onclick="closePopup('login')">×</span>
+      <h3 style="font-family: 'Playfair Display', serif; color: #AD68A9; margin-bottom: 20px; text-align: center;">Log In</h3>
+      <form>
+        <div style="margin-bottom: 15px;">
+          <label style="display: block; margin-bottom: 5px;">Email:</label>
+          <input type="email" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;" required>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <label style="display: block; margin-bottom: 5px;">Password:</label>
+          <input type="password" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;" required>
+        </div>
+        <button type="submit" class="btn" style="width: 100%;">Log In</button>
+      </form>
+      <p style="text-align: center; margin-top: 15px; font-size: 0.9rem;">
+        Don't have an account? <a href="#" style="color: #AD68A9;" onclick="switchPopup('login', 'signup')">Sign up</a>
+      </p>
+    </div>
+  </div>
+  
+  <!-- Signup Popup -->
+  <div id="signupPopup" class="popup-container hidden">
+    <div class="popup-box">
+      <span class="close-btn" onclick="closePopup('signup')">×</span>
+      <h3 style="font-family: 'Playfair Display', serif; color: #AD68A9; margin-bottom: 20px; text-align: center;">Create Account</h3>
+      <form>
+        <div style="margin-bottom: 15px;">
+          <label style="display: block; margin-bottom: 5px;">Full Name:</label>
+          <input type="text" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;" required>
+        </div>
+        <div style="margin-bottom: 15px;">
+          <label style="display: block; margin-bottom: 5px;">Email:</label>
+          <input type="email" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;" required>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <label style="display: block; margin-bottom: 5px;">Password:</label>
+          <input type="password" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;" required>
+        </div>
+        <button type="submit" class="btn" style="width: 100%;">Sign Up</button>
+      </form>
+      <p style="text-align: center; margin-top: 15px; font-size: 0.9rem;">
+        Already have an account? <a href="#" style="color: #AD68A9;" onclick="switchPopup('signup', 'login')">Log in</a>
+      </p>
+    </div>
+  </div>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script>
+    function openPopup(type) {
+      if (type === 'login' || type === 'signup') {
+        document.getElementById(`${type}Popup`).classList.remove('hidden');
+      } else {
+        const popup = document.getElementById("popupContainer");
+        const content = document.getElementById("popupContent");
+  
+        fetch(type + ".html")
+          .then(res => res.text())
+          .then(html => {
+            content.innerHTML = html;
+            popup.classList.remove("hidden");
+          });
+      }
+    }
+  
+    function closePopup(type) {
+      if (type) {
+        document.getElementById(`${type}Popup`).classList.add('hidden');
+      } else {
+        document.getElementById("popupContainer").classList.add("hidden");
+      }
+    }
+
+    function switchPopup(from, to) {
+      closePopup(from);
+      openPopup(to);
+    }
+
+    // Voucher Popup Functions
+    function openVoucherPopup() {
+      const voucherPopup = document.getElementById("voucherPopup");
+      const successMessage = document.getElementById("successMessage");
+      const emailInput = document.getElementById("voucherEmail");
+      
+      // Reset popup state
+      successMessage.style.display = "none";
+      emailInput.style.display = "block";
+      emailInput.value = "";
+      document.querySelector(".voucher-popup button").style.display = "block";
+      
+      voucherPopup.classList.remove("hidden");
+    }
+
+    function closeVoucherPopup() {
+      document.getElementById("voucherPopup").classList.add("hidden");
+    }
+
+    function claimVoucher() {
+      const emailInput = document.getElementById("voucherEmail");
+      const successMessage = document.getElementById("successMessage");
+
+      if (emailInput.value.trim() === "" || !emailInput.value.includes("@")) {
+        alert("Mohon masukkan email yang valid!");
+        return;
+      }
+
+      // Simulate voucher claim (in a real app, this would send the email to a server)
+      emailInput.style.display = "none";
+      document.querySelector(".voucher-popup button").style.display = "none";
+      successMessage.style.display = "block";
+    }
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'932cada29f99bfe8',t:'MTc0NTA2ODYwNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'932cf128ebf5ed88',t:'MTc0NTA3MTM3MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

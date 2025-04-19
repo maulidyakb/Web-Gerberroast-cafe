@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coffee & Drinks | Gerberroast Cafe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #FFD3E2;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* Header Styles */
+    header {
+      position: relative;
+      padding: 20px 0;
+    }
+    
+    .logo-container {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: #AD68A9;
+      text-decoration: none;
+    }
+    
+    .top-right-nav {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+    }
+    
+    .btn {
+      background-color: #AD68A9;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-family: 'Poppins', sans-serif;
+      display: inline-block;
+      text-align: center;
+      transition: background-color 0.3s ease;
+      margin-top: 15px;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .btn:hover {
+      background-color: #C187BE;
+    }
+    
+    .btn-auth {
+      background-color: #FB607F;
+      color: white;
+    }
+    
+    .btn-auth:hover {
+      background-color: #ff8da5;
+    }
+    
+    /* Navigation */
+    .main-nav {
+      background-color: white;
+      padding: 15px 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+    
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: #AD68A9;
+      text-decoration: none;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    
+    .nav-links a:hover {
+      color: #FB607F;
+    }
+    
+    .nav-links a.active {
+      color: #FB607F;
+      font-weight: 600;
+    }
+    
+    /* Cart Icon */
+    .cart-icon {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+    }
+    
+    .cart-count {
+      background-color: #FB607F;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+    
+    /* Page Banner */
+    .page-banner {
+      background-image: url('/api/placeholder/1200/400');
+      background-size: cover;
+      background-position: center;
+      height: 300px;
+      position: relative;
+      border-radius: 15px;
+      margin: 20px 20px 40px;
+      overflow: hidden;
+    }
+    
+    .banner-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      color: white;
+      padding: 20px;
+    }
+    
+    .banner-overlay h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.5rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    
+    .banner-overlay p {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 400;
+      line-height: 1.5;
+      max-width: 800px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+    }
+    
+    /* Menu Section */
+    .menu-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .menu-tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    
+    .menu-tab {
+      background-color: white;
+      padding: 12px 25px;
+      border-radius: 25px;
+      font-weight: 500;
+      margin: 0 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    
+    .menu-tab.active {
+      background-color: #AD68A9;
+      color: white;
+    }
+    
+    .menu-tab:hover:not(.active) {
+      border-color: #AD68A9;
+      color: #AD68A9;
+    }
+    
+    .menu-section {
+      margin-bottom: 60px;
+    }
+    
+    .menu-section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: #AD68A9;
+      text-align: left;
+      margin-bottom: 30px;
+      position: relative;
+    }
+    
+    .menu-section-title::after {
+      content: "";
+      display: block;
+      width: 60px;
+      height: 3px;
+      background-color: #FB607F;
+      margin: 10px 0 0;
+    }
+    
+    .menu-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .menu-item {
+      background-color: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .menu-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .menu-item-img {
+      width: 100%;
+      height: 200px;
+      background-color: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .menu-item-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .menu-item-content {
+      padding: 20px;
+    }
+    
+    .menu-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+    
+    .menu-item-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: #333;
+    }
+    
+    .menu-item-price {
+      color: #FB607F;
+      font-weight: 500;
+      font-size: 1.2rem;
+    }
+    
+    .menu-item-desc {
+      color: #666;
+      margin-bottom: 15px;
+      font-size: 1rem;
+    }
+    
+    .menu-item-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+      margin-bottom: 15px;
+    }
+    
+    .menu-item-tag {
+      background-color: #f0f0f0;
+      padding: 5px 10px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      color: #666;
+    }
+    
+    .featured-tag {
+      background-color: #FFD3E2;
+      color: #AD68A9;
+    }
+    
+    /* Favorite Icon */
+    .favorite-icon {
+      display: inline-block;
+      color: #FB607F;
+      font-size: 1.2rem;
+      margin-left: 8px;
+    }
+    
+    /* Size Selection */
+    .size-selection {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    
+    .size-btn {
+      padding: 5px 15px;
+      border-radius: 15px;
+      border: 1px solid #AD68A9;
+      background: white;
+      color: #AD68A9;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+    
+    .size-btn.active {
+      background: #AD68A9;
+      color: white;
+    }
+    
+    .size-btn:hover:not(.active) {
+      background: #f0f0f0;
+    }
+    
+    /* Temperature Selection */
+    .temp-selection {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    
+    .temp-btn {
+      padding: 5px 15px;
+      border-radius: 15px;
+      border: 1px solid #AD68A9;
+      background: white;
+      color: #AD68A9;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+    
+    .temp-btn.active {
+      background: #AD68A9;
+      color: white;
+    }
+    
+    .temp-btn:hover:not(.active) {
+      background: #f0f0f0;
+    }
+    
+    /* Order Controls */
+    .order-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 15px;
+    }
+    
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .quantity-btn {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      border: 1px solid #AD68A9;
+      background: white;
+      color: #AD68A9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s ease;
+    }
+    
+    .quantity-btn:hover {
+      background: #AD68A9;
+      color: white;
+    }
+    
+    .quantity-display {
+      font-weight: 500;
+      width: 30px;
+      text-align: center;
+    }
+    
+    .add-to-cart-btn {
+      background-color: #FB607F;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 25px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .add-to-cart-btn:hover {
+      background-color: #ff8da5;
+    }
+    
+    /* Newsletter Section */
+    .newsletter-section {
+      background-color: white;
+      padding: 50px 20px;
+      text-align: center;
+      border-radius: 15px;
+      margin: 0 20px 60px;
+    }
+    
+    .newsletter-form {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    .newsletter-input {
+      width: 100%;
+      padding: 12px 20px;
+      border: 1px solid #ddd;
+      border-radius: 25px;
+      margin-bottom: 15px;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    /* Cart Sidebar */
+    .cart-sidebar {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 350px;
+      height: 100vh;
+      background-color: white;
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+      z-index: 2000;
+      transition: right 0.3s ease;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    
+    .cart-sidebar.open {
+      right: 0;
+    }
+    
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .cart-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: #AD68A9;
+    }
+    
+    .close-cart {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #666;
+    }
+    
+    .cart-items {
+      margin-bottom: 20px;
+    }
+    
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .cart-item-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .cart-item-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .cart-item-info {
+      flex: 1;
+    }
+    
+    .cart-item-title {
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+    
+    .cart-item-price {
+      color: #FB607F;
+      font-size: 0.9rem;
+    }
+    
+    .cart-item-quantity {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 5px;
+    }
+    
+    .cart-item-remove {
+      color: #999;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    
+    .cart-item-remove:hover {
+      color: #FB607F;
+    }
+    
+    .cart-summary {
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .cart-summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    
+    .cart-total {
+      font-weight: 600;
+      color: #AD68A9;
+    }
+    
+    .checkout-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #FB607F;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .checkout-btn:hover {
+      background-color: #ff8da5;
+    }
+    
+    .cart-empty {
+      text-align: center;
+      padding: 30px 0;
+      color: #999;
+    }
+    
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 1999;
+      display: none;
+    }
+    
+    .overlay.active {
+      display: block;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: #AD68A9;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 30px;
+    }
+    
+    .footer-section {
+      flex: 1;
+      min-width: 250px;
+    }
+    
+    .footer-section h3 {
+      margin-bottom: 20px;
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .contact-info p {
+      margin-bottom: 10px;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    
+    .social-link {
+      width: 40px;
+      height: 40px;
+      background-color: white;
+      color: #AD68A9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    
+    .social-link:hover {
+      background-color: #FB607F;
+      color: white;
+      transform: translateY(-5px);
+    }
+    
+    .footer-bottom {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .popup-container {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .popup-container.hidden {
+      display: none;
+    }
+
+    .popup-box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      width: 90%;
+      max-width: 400px;
+      animation: fadeIn 0.3s ease;
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px; right: 15px;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    @keyframes fadeIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    
+    /* Success Alert */
+    .alert {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 25px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      z-index: 2001;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .alert.show {
+      opacity: 1;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .banner-overlay h1 {
+        font-size: 3rem;
+        letter-spacing: 1px;
+      }
+      
+      .banner-overlay p {
+        font-size: 1.5rem;
+      }
+      
+      .menu-tabs {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      .menu-tab {
+        width: 80%;
+        text-align: center;
+        margin: 0;
+      }
+      
+      .menu-items {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      
+      .cart-sidebar {
+        width: 100%;
+        right: -100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="top-right-nav">
+      <a href="#" class="btn btn-auth" onclick="openPopup('login')">Log in</a>
+      <a href="#" class="btn btn-auth" onclick="openPopup('signup')">Sign up</a>
+    </div>
+    
+    <div class="logo-container">
+      <a href="index.html" class="logo">Gerberroast Café</a>
+    </div>
+  </header>
+  
+  <nav class="main-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">Gerberroast</a>
+      <ul class="nav-links">
+        <li><a href="coffee-menu.html" class="active">Coffee & Drinks</a></li>
+        <li><a href="cheesecake-menu.html">Cheesecakes</a></li>
+        <li><a href="flower-shop.html">Flower Shop</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="cart-icon" onclick="toggleCart()">
+        Cart <span class="cart-count">0</span>
+      </div>
+    </div>
+  </nav>
+  
+  <main>
+    <section class="page-banner">
+      <div class="banner-overlay">
+        <h1>Coffee & Drinks Menu</h1>
+        <p>Indulge in our artisan coffee creations and specialty beverages infused with floral elegance</p>
+      </div>
+    </section>
+    
+    <div class="menu-container">
+      <div class="menu-tabs">
+        <div class="menu-tab active" onclick="switchTab(this, 'coffee')">Coffee</div>
+        <div class="menu-tab" onclick="switchTab(this, 'signature')">Signature Drinks</div>
+        <div class="menu-tab" onclick="switchTab(this, 'tea')">Tea Selection</div>
+      </div>
+      
+      <!-- Coffee Section -->
+      <section id="coffee" class="menu-section">
+        <h2 class="menu-section-title">Artisan Coffee</h2>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-img">
+              <img src="images/espresso.jpg" alt="Espresso">
+            </div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Espresso</h3>
+                <span class="menu-item-price">Rp 33.000</span>
+              </div>
+              <p class="menu-item-desc">Rich and intense coffee concentrated with crema. Our house blend features notes of chocolate and caramel.</p>
+              <div class="menu-item-tags">
+                <span class="menu-item-tag">House Blend</span>
+                <span class="menu-item-tag">Bold</span>
+              </div>
+              <div class="size-selection" data-item="Espresso">
+                <button class="size-btn active" data-size="Medium" data-price="33000" onclick="selectSize(this)">Medium</button>
+                <button class="size-btn" data-size="Large" data-price="38000" onclick="selectSize(this)">Large</button>
+              </div>
+              <div class="temp-selection" data-item="Espresso">
+                <button class="temp-btn active" data-temp="Hot" onclick="selectTemp(this)">Hot</button>
+                <button class="temp-btn" data-temp="Iced" onclick="selectTemp(this)">Iced</button>
+              </div>
+              <div class="order-controls">
+                <div class="quantity-control">
+                  <div class="quantity-btn" onclick="decreaseQuantity(this)">-</div>
+                  <div class="quantity-display">1</div>
+                  <div class="quantity-btn" onclick="increaseQuantity(this)">+</div>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Espresso', 33000, '/api/placeholder/300/200', this)">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-img">
+              <img src="images/cappucino.jpg" alt="Cappuccino">
+            </div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Cappuccino <span class="favorite-icon">★</span></h3>
+                <span class="menu-item-price">Rp 40.000</span>
+              </div>
+              <p class="menu-item-desc">Equal parts espresso, steamed milk, and silky microfoam. A perfect balance of strength and creaminess.</p>
+              <div class="menu-item-tags">
+                <span class="menu-item-tag">Classic</span>
+                <span class="menu-item-tag featured-tag">Customer Favorite</span>
+              </div>
+              <div class="size-selection" data-item="Cappuccino">
+                <button class="size-btn active" data-size="Medium" data-price="40000" onclick="selectSize(this)">Medium</button>
+                <button class="size-btn" data-size="Large" data-price="45000" onclick="selectSize(this)">Large</button>
+              </div>
+              <div class="temp-selection" data-item="Cappuccino">
+                <button class="temp-btn active" data-temp="Hot" onclick="selectTemp(this)">Hot</button>
+                <button class="temp-btn" data-temp="Iced" onclick="selectTemp(this)">Iced</button>
+              </div>
+              <div class="order-controls">
+                <div class="quantity-control">
+                  <div class="quantity-btn" onclick="decreaseQuantity(this)">-</div>
+                  <div class="quantity-display">1</div>
+                  <div class="quantity-btn" onclick="increaseQuantity(this)">+</div>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Cappuccino', 40000, '/api/placeholder/300/200', this)">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-img">
+              <img src="/api/placeholder/300/200" alt="Flat White">
+            </div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Flat White</h3>
+                <span class="menu-item-price">Rp 38.000</span>
+              </div>
+              <p class="menu-item-desc">Double shot of espresso with velvety microfoam milk. Stronger than a latte with a smoother texture.</p>
+              <div class="menu-item-tags">
+                <span class="menu-item-tag">Creamy</span>
+                <span class="menu-item-tag">Strong</span>
+              </div>
+              <div class="size-selection" data-item="Flat White">
+                <button class="size-btn active" data-size="Medium" data-price="38000" onclick="selectSize(this)">Medium</button>
+                <button class="size-btn" data-size="Large" data-price="43000" onclick="selectSize(this)">Large</button>
+              </div>
+              <div class="temp-selection" data-item="Flat White">
+                <button class="temp-btn active" data-temp="Hot" onclick="selectTemp(this)">Hot</button>
+                <button class="temp-btn" data-temp="Iced" onclick="selectTemp(this)">Iced</button>
+              </div>
+              <div class="order-controls">
+                <div class="quantity-control">
+                  <div class="quantity-btn" onclick="decreaseQuantity(this)">-</div>
+                  <div class="quantity-display">1</div>
+                  <div class="quantity-btn" onclick="increaseQuantity(this)">+</div>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Flat White', 38000, '/api/placeholder/300/200', this)">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-img">
+              <img src="images/americano.jpg" alt="Americano">
+            </div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Americano</h3>
+                <span class="menu-item-price">Rp 35.000</span>
+              </div>
+              <p class="menu-item-desc">Espresso diluted with hot water, delivering a similar strength to drip coffee but with different flavor notes.</p>
+              <div class="menu-item-tags">
+                <span class="menu-item-tag">Classic</span>
+                <span class="menu-item-tag">Balanced</span>
+              </div>
+              <div class="size-selection" data-item="Americano">
+                <button class="size-btn active" data-size="Medium" data-price="35000" onclick="selectSize(this)">Medium</button>
+                <button class="size-btn" data-size="Large" data-price="40000" onclick="selectSize(this)">Large</button>
+              </div>
+              <div class="temp-selection" data-item="Americano">
+                <button class="temp-btn active" data-temp="Hot" onclick="selectTemp(this)">Hot</button>
+                <button class="temp-btn" data-temp="Iced" onclick="selectTemp(this)">Iced</button>
+              </div>
+              <div class="order-controls">
+                <div class="quantity-control">
+                  <div class="quantity-btn" onclick="decreaseQuantity(this)">-</div>
+                  <div class="quantity-display">1</div>
+                  <div class="quantity-btn" onclick="increaseQuantity(this)">+</div>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Americano', 35000, '/api/placeholder/300/200', this)">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-img">
+              <img src="images/mocha.jpg" alt="Mocha">
+            </div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Mocha <span class="favorite-icon">★</span></h3>
+                <span class="menu-item-price">Rp 43.000</span>
+              </div>
+              <p class="menu-item-desc">A delightful blend of espresso, steamed milk, and our house-made chocolate sauce, topped with whipped cream.</p>
+              <div class="menu-item-tags">
+                <span class="menu-item-tag">Chocolate</span>
+                <span class="menu-item-tag featured-tag">Staff Pick</span>
+              </div>
+              <div class="size-selection" data-item="Mocha">
+                <button class="size-btn active" data-size="Medium" data-price="43000" onclick="selectSize(this)">Medium</button>
+                <button class="size-btn" data-size="Large" data-price="48000" onclick="selectSize(this)">Large</button>
+              </div>
+              <div class="temp-selection" data-item="Mocha">
+                <button class="temp-btn active" data-temp="Hot" onclick="selectTemp(this)">Hot</button>
+                <button class="temp-btn" data-temp="Iced" onclick="selectTemp(this)">Iced</button>
+              </div>
+              <div class="order-controls">
+                <div class="quantity-control">
+                  <div class="quantity-btn" onclick="decreaseQuantity(this)">-</div>
+                  <div class="quantity-display">1</div>
+                  <div class="quantity-btn" onclick="increaseQuantity(this)">+</div>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Mocha', 43000, '/api/placeholder/300/200', this)">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-img">
+              <img src="images/cold brew.jpg" alt="Cold Brew">
+            </div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Cold Brew</h3>
+                <span class="menu-item-price">Rp 40.000</span>
+              </div>
+              <p class="menu-item-desc">Smooth and less acidic coffee, steeped for 24 hours in cold water. Served over ice for a refreshing experience.</p>
+              <div class="menu-item-tags">
+                <span class="menu-item-tag">Cold</span>
+                <span class="menu-item-tag">Smooth</span>
+              </div>
+              <div class="size-selection" data-item="Cold Brew">
+                <button class="size-btn active" data-size="Medium" data-price="40000" onclick="selectSize(this)">Medium</button>
+                <button class="size-btn" data-size="Large" data-price="45000" onclick="selectSize(this)">Large</button>
+              </div>
+              <div class="temp-selection" data-item="Cold Brew">
+                <button class="temp-btn active" data-temp="Iced" onclick="selectTemp(this)">Iced</button>
+              </div>
+              <div class="order-controls">
+                <div class="quantity-control">
+                  <div class="quantity-btn" onclick="decreaseQuantity(this)">-</div>
+                  <div class="quantity-display">1</div>
+                  <div class="quantity-btn" onclick="increaseQuantity(this)">+</div>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Cold Brew', 40000, '/api/placeholder/300/200', this)">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Signature Drinks Section -->
+      <section id="signature" class="menu-section">
+        <h2 class="menu-section-title">Signature Floral Drinks</h2>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-img">
+              <img src="images/rosse late.jpg" alt="Rose Latte">
+            </div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Rose Latte <span class="favorite-icon">★</span></h3>
+                <span class="menu-item-price">Rp 47.000</span>
+              </div>
+              <p class="menu-item-desc">Our signature latte infused with delicate rose essence, topped with dried rose petals. A fragrant and romantic treat.</p>
+              <div class="menu-item-tags">
+                <span class="menu-item-tag featured-tag">House Specialty</span>
+                <span class="menu-item-tag">Floral</span>
+              </div>
+              <div class="size-selection" data-item="Rose Latte">
+                <button class="size-btn active" data-size="Medium" data-price="47000" onclick="selectSize(this)">Medium</button>
+                <button class="size-btn" data-size="Large" data-price="52000" onclick="selectSize(this)">Large</button>
+              </div>
+              <div class="temp-selection" data-item="Rose Latte">
+                <button class="temp-btn active" data-temp="Hot" onclick="selectTemp(this)">Hot</button>
+                <button class="temp-btn" data-temp="Iced" onclick="selectTemp(this)">Iced</button>
+              </div>
+              <div class="order-controls">
+                <div class="quantity-control">
+                  <div class="quantity-btn" onclick="decreaseQuantity(this)">-</div>
+                  <div class="quantity-display">1</div>
+                  <div class="quantity-btn" onclick="increaseQuantity(this)">+</div>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Rose Latte', 47000, '/api/placeholder/300/200', this)">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-img">
+              <img src="images/lavender latte.jpg" alt="Lavender Honey Latte">
+            </div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Lavender Honey Latte</h3>
+                <span class="menu-item-price">Rp 50.000</span>
+              </div>
+              <p class="menu-item-desc">Espresso and steamed milk infused with lavender syrup and sweetened with local honey. Soothing and aromatic.</p>
+              <div class="menu-item-tags">
+                <span class="menu-item-tag">Floral</span>
+                <span class="menu-item-tag">Sweet</span>
+              </div>
+              <div class="size-selection" data-item="Lavender Honey Latte">
+                <button class="size-btn active" data-size="Medium" data-price="50000" onclick="selectSize(this)">Medium</button>
+                <button class="size-btn" data-size="Large" data-price="55000" onclick="selectSize(this)">Large</button>
+              </div>
+              <div class="temp-selection" data-item="Lavender Honey Latte">
+                <button class="temp-btn active" data-temp="Hot" onclick="selectTemp(this)">Hot</button>
+                <button class="temp-btn" data-temp="Iced" onclick="selectTemp(this)">Iced</button>
+              </div>
+              <div class="order-controls">
+                <div class="quantity-control">
+                  <div class="quantity-btn" onclick="decreaseQuantity(this)">-</div>
+                  <div class="quantity-display">1</div>
+                  <div class="quantity-btn" onclick="increaseQuantity(this)">+</div>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Lavender Honey Latte', 50000, '/api/placeholder/300/200', this)">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-img">
+              <img src="/api/placeholder/300/200" alt="Jasmine Dream">
+            </div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Jasmine Dream</h3>
+                <span class="menu-item-price">Rp 45.000</span>
+              </div>
+              <p class="menu-item-desc">Cold brew coffee infused with jasmine essence and a hint of vanilla, served over ice. Refreshing and delicately floral.</p>
+              <div class="menu-item-tags">
+                <span class="menu-item-tag">Cold</span>
+                <span class="menu-item-tag">Floral</span>
+              </div>
+              <div class="size-selection" data-item="Jasmine Dream">
+                <button class="size-btn active" data-size="Medium" data-price="45000" onclick="selectSize(this)">Medium</button>
+                <button class="size-btn" data-size="Large" data-price="50000" onclick="selectSize(this)">Large</button>
+              </div>
+              <div class="temp-selection" data-item="Jasmine Dream">
+                <button class="temp-btn active" data-temp="Iced" onclick="selectTemp(this)">Iced</button>
+              </div>
+              <div class="order-controls">
+                <div class="quantity-control">
+                  <div class="quantity-btn" onclick="decreaseQuantity(this)">-</div>
+                  <div class="quantity-display">1</div>
+                  <div class="quantity-btn" onclick="increaseQuantity(this)">+</div>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Jasmine Dream', 45000, '/api/placeholder/300/200', this)">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-img">
+              <img src="/api/placeholder/300/200" alt="Elderflower Iced Coffee">
+            </div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Elderflower Iced Coffee</h3>
+                <span class="menu-item-price">Rp 48.000</span>
+              </div>
+              <p class="menu-item-desc">Cold brew coffee with elderflower cordial and sparkling water. A refreshing, lightly carbonated summer drink.</p>
+              <div class="menu-item-tags">
+                <span class="menu-item-tag">Sparkling</span>
+                <span class="menu-item-tag">Seasonal</span>
+              </div>
+              <div class="size-selection" data-item="Elderflower Iced Coffee">
+                <button class="size-btn active" data-size="Medium" data-price="48000" onclick="selectSize(this)">Medium</button>
+                <button class="size-btn" data-size="Large" data-price="53000" onclick="selectSize(this)">Large</button>
+              </div>
+              <div class="temp-selection" data-item="Elderflower Iced Coffee">
+                <button class="temp-btn active" data-temp="Iced" onclick="selectTemp(this)">Iced</button>
+              </div>
+              <div class="order-controls">
+                <div class="quantity-control">
+                  <div class="quantity-btn" onclick="decreaseQuantity(this)">-</div>
+                  <div class="quantity-display">1</div>
+                  <div class="quantity-btn" onclick="increaseQuantity(this)">+</div>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Elderflower Iced Coffee', 48000, '/api/placeholder/300/200', this)">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Tea Selection Section -->
+      <section id="tea" class="menu-section">
+        <h2 class="menu-section-title">Artisan Tea Selection</h2>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-img">
+              <img src="/api/placeholder/300/200" alt="Rose Earl Grey">
+            </div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Rose Earl Grey <span class="favorite-icon">★</span></h3>
+                <span class="menu-item-price">Rp 37.000</span>
+              </div>
+              <p class="menu-item-desc">Classic Earl Grey tea enhanced with rose petals. The floral notes perfectly complement the bergamot flavor.</p>
+              <div class="menu-item-tags">
+                <span class="menu-item-tag featured-tag">Customer Favorite</span>
+                <span class="menu-item-tag">Floral</span>
+              </div>
+              <div class="size-selection" data-item="Rose Earl Grey">
+                <button class="size-btn active" data-size="Medium" data-price="37000" onclick="selectSize(this)">Medium</button>
+                <button class="size-btn" data-size="Large" data-price="42000" onclick="selectSize(this)">Large</button>
+              </div>
+              <div class="temp-selection" data-item="Rose Earl Grey">
+                <button class="temp-btn active" data-temp="Hot" onclick="selectTemp(this)">Hot</button>
+                <button class="temp-btn" data-temp="Iced" onclick="selectTemp(this)">Iced</button>
+              </div>
+              <div class="order-controls">
+                <div class="quantity-control">
+                  <div class="quantity-btn" onclick="decreaseQuantity(this)">-</div>
+                  <div class="quantity-display">1</div>
+                  <div class="quantity-btn" onclick="increaseQuantity(this)">+</div>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Rose Earl Grey', 37000, '/api/placeholder/300/200', this)">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-img">
+              <img src="/api/placeholder/300/200" alt="Jasmine Green Tea">
+            </div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Jasmine Green Tea</h3>
+                <span class="menu-item-price">Rp 35.000</span>
+              </div>
+              <p class="menu-item-desc">Delicate green tea scented with fresh jasmine blossoms. Uplifting and refreshing with a naturally sweet aroma.</p>
+              <div class="menu-item-tags">
+                <span class="menu-item-tag">Green Tea</span>
+                <span class="menu-item-tag">Floral</span>
+              </div>
+              <div class="size-selection" data-item="Jasmine Green Tea">
+                <button class="size-btn active" data-size="Medium" data-price="35000" onclick="selectSize(this)">Medium</button>
+                <button class="size-btn" data-size="Large" data-price="40000" onclick="selectSize(this)">Large</button>
+              </div>
+              <div class="temp-selection" data-item="Jasmine Green Tea">
+                <button class="temp-btn active" data-temp="Hot" onclick="selectTemp(this)">Hot</button>
+                <button class="temp-btn" data-temp="Iced" onclick="selectTemp(this)">Iced</button>
+              </div>
+              <div class="order-controls">
+                <div class="quantity-control">
+                  <div class="quantity-btn" onclick="decreaseQuantity(this)">-</div>
+                  <div class="quantity-display">1</div>
+                  <div class="quantity-btn" onclick="increaseQuantity(this)">+</div>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Jasmine Green Tea', 35000, '/api/placeholder/300/200', this)">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-img">
+              <img src="/api/placeholder/300/200" alt="Chamomile Blossom">
+            </div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Chamomile Blossom</h3>
+                <span class="menu-item-price">Rp 35.000</span>
+              </div>
+              <p class="menu-item-desc">Pure chamomile flowers brewed into a soothing, caffeine-free infusion. Calming and perfect for relaxation.</p>
+              <div class="menu-item-tags">
+                <span class="menu-item-tag">Herbal</span>
+                <span class="menu-item-tag">Caffeine-Free</span>
+              </div>
+              <div class="size-selection" data-item="Chamomile Blossom">
+                <button class="size-btn active" data-size="Medium" data-price="35000" onclick="selectSize(this)">Medium</button>
+                <button class="size-btn" data-size="Large" data-price="40000" onclick="selectSize(this)">Large</button>
+              </div>
+              <div class="temp-selection" data-item="Chamomile Blossom">
+                <button class="temp-btn active" data-temp="Hot" onclick="selectTemp(this)">Hot</button>
+                <button class="temp-btn" data-temp="Iced" onclick="selectTemp(this)">Iced</button>
+              </div>
+              <div class="order-controls">
+                <div class="quantity-control">
+                  <div class="quantity-btn" onclick="decreaseQuantity(this)">-</div>
+                  <div class="quantity-display">1</div>
+                  <div class="quantity-btn" onclick="increaseQuantity(this)">+</div>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Chamomile Blossom', 35000, '/api/placeholder/300/200', this)">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-img">
+              <img src="/api/placeholder/300/200" alt="Hibiscus Iced Tea">
+            </div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Hibiscus Iced Tea</h3>
+                <span class="menu-item-price">Rp 40.000</span>
+              </div>
+              <p class="menu-item-desc">Vibrant ruby-red hibiscus tea served over ice with a hint of rose water and a touch of honey. Refreshingly tart and sweet.</p>
+              <div class="menu-item-tags">
+                <span class="menu-item-tag">Cold</span>
+                <span class="menu-item-tag">Floral</span>
+              </div>
+              <div class="size-selection" data-item="Hibiscus Iced Tea">
+                <button class="size-btn active" data-size="Medium" data-price="40000" onclick="selectSize(this)">Medium</button>
+                <button class="size-btn" data-size="Large" data-price="45000" onclick="selectSize(this)">Large</button>
+              </div>
+              <div class="temp-selection" data-item="Hibiscus Iced Tea">
+                <button class="temp-btn active" data-temp="Iced" onclick="selectTemp(this)">Iced</button>
+              </div>
+              <div class="order-controls">
+                <div class="quantity-control">
+                  <div class="quantity-btn" onclick="decreaseQuantity(this)">-</div>
+                  <div class="quantity-display">1</div>
+                  <div class="quantity-btn" onclick="increaseQuantity(this)">+</div>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Hibiscus Iced Tea', 40000, '/api/placeholder/300/200', this)">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  
+  <div class="cart-sidebar">
+    <div class="cart-header">
+      <h3 class="cart-title">Your Cart</h3>
+      <button class="close-cart" onclick="toggleCart()">×</button>
+    </div>
+    <div class="cart-items">
+      <div class="cart-empty">Your cart is empty</div>
+    </div>
+    <div class="cart-summary">
+      <div class="cart-summary-row">
+        <span>Subtotal:</span>
+        <span>Rp 0</span>
+      </div>
+      <div class="cart-summary-row cart-total">
+        <span>Total:</span>
+        <span>Rp 0</span>
+      </div>
+    </div>
+    <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
+  </div>
+  
+  <div class="overlay" onclick="toggleCart()"></div>
+  
+  <div class="alert">Item added to cart!</div>
+  
+  <!-- Login Popup -->
+  <div id="loginPopup" class="popup-container hidden">
+    <div class="popup-box">
+      <span class="close-btn" onclick="closePopup('login')">×</span>
+      <h3 style="font-family: 'Playfair Display', serif; color: #AD68A9; margin-bottom: 20px; text-align: center;">Log In</h3>
+      <form>
+        <div style="margin-bottom: 15px;">
+          <label style="display: block; margin-bottom: 5px;">Email:</label>
+          <input type="email" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;" required>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <label style="display: block; margin-bottom: 5px;">Password:</label>
+          <input type="password" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;" required>
+        </div>
+        <button type="submit" class="btn" style="width: 100%;">Log In</button>
+      </form>
+      <p style="text-align: center; margin-top: 15px; font-size: 0.9rem;">
+        Don't have an account? <a href="#" style="color: #AD68A9;" onclick="switchPopup('login', 'signup')">Sign up</a>
+      </p>
+    </div>
+  </div>
+  
+  <!-- Signup Popup -->
+  <div id="signupPopup" class="popup-container hidden">
+    <div class="popup-box">
+      <span class="close-btn" onclick="closePopup('signup')">×</span>
+      <h3 style="font-family: 'Playfair Display', serif; color: #AD68A9; margin-bottom: 20px; text-align: center;">Create Account</h3>
+      <form>
+        <div style="margin-bottom: 15px;">
+          <label style="display: block; margin-bottom: 5px;">Full Name:</label>
+          <input type="text" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;" required>
+        </div>
+        <div style="margin-bottom: 15px;">
+          <label style="display: block; margin-bottom: 5px;">Email:</label>
+          <input type="email" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;" required>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <label style="display: block; margin-bottom: 5px;">Password:</label>
+          <input type="password" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;" required>
+        </div>
+        <button type="submit" class="btn" style="width: 100%;">Sign Up</button>
+      </form>
+      <p style="text-align: center; margin-top: 15px; font-size: 0.9rem;">
+        Already have an account? <a href="#" style="color: #AD68A9;" onclick="switchPopup('signup', 'login')">Log in</a>
+      </p>
+    </div>
+  </div>
+  
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Visit Us</h3>
+        <p>Jl. Tunjungan No.16<br>Surabaya, Indonesia</p>
+      </div>
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <p>Phone: +62 123-4567-8910</p>
+        <p>Email: <a href="mailto:hello@gerberroastcafe.com">hello@gerberroastcafe.com</a></p>
+      </div>
+      <div class="footer-section">
+        <h3>Follow Us</h3>
+        <div class="social-links">
+          <a href="#" class="social-link">IG</a>
+          <a href="#" class="social-link">TW</a>
+          <a href="#" class="social-link">YT</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Gerberroast Café. All Rights Reserved.</p>
+    </div>
+  </footer>
+  
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script>
+    // Initialize cart from localStorage
+    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    let cartCount = parseInt(localStorage.getItem('cartCount')) || 0;
+
+    // Tab switching functionality
+    function switchTab(tab, sectionId) {
+      const tabs = document.querySelectorAll('.menu-tab');
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const sections = document.querySelectorAll('.menu-section');
+      sections.forEach(s => s.style.display = 'none');
+      document.getElementById(sectionId).style.display = 'block';
+    }
+
+    // Quantity controls
+    function increaseQuantity(btn) {
+      const display = btn.previousElementSibling;
+      let quantity = parseInt(display.innerText);
+      display.innerText = quantity + 1;
+    }
+
+    function decreaseQuantity(btn) {
+      const display = btn.nextElementSibling;
+      let quantity = parseInt(display.innerText);
+      if (quantity > 1) {
+        display.innerText = quantity - 1;
+      }
+    }
+
+    // Size selection
+    function selectSize(btn) {
+      const sizeSelection = btn.parentElement;
+      const itemName = sizeSelection.dataset.item;
+      const priceDisplay = sizeSelection.parentElement.querySelector('.menu-item-price');
+      const addToCartBtn = sizeSelection.parentElement.querySelector('.add-to-cart-btn');
+
+      sizeSelection.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const newPrice = parseInt(btn.dataset.price);
+      priceDisplay.innerText = `Rp ${newPrice.toLocaleString()}`;
+
+      addToCartBtn.setAttribute('onclick', `addToCart('${itemName}', ${newPrice}, '/api/placeholder/300/200', this)`);
+    }
+
+    // Temperature selection
+    function selectTemp(btn) {
+      const tempSelection = btn.parentElement;
+      tempSelection.querySelectorAll('.temp-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    // Cart functionality
+    function toggleCart() {
+      document.querySelector('.cart-sidebar').classList.toggle('open');
+      document.querySelector('.overlay').classList.toggle('active');
+    }
+
+    function addToCart(name, price, image, btn) {
+      const quantityDisplay = btn.parentElement.querySelector('.quantity-display');
+      const quantity = parseInt(quantityDisplay.innerText);
+      const sizeSelection = btn.parentElement.parentElement.querySelector('.size-selection');
+      const tempSelection = btn.parentElement.parentElement.querySelector('.temp-selection');
+      const selectedSize = sizeSelection.querySelector('.size-btn.active').dataset.size;
+      const selectedTemp = tempSelection ? tempSelection.querySelector('.temp-btn.active').dataset.temp : 'Hot';
+      const itemNameWithSizeAndTemp = `${name} (${selectedSize}, ${selectedTemp})`;
+
+      const existingItemIndex = cartItems.findIndex(item => item.name === itemNameWithSizeAndTemp && item.category === 'Coffee & Drinks');
+
+      if (existingItemIndex > -1) {
+        cartItems[existingItemIndex].quantity += quantity;
+      } else {
+        cartItems.push({
+          name: itemNameWithSizeAndTemp,
+          price: price,
+          image: image,
+          quantity: quantity,
+          category: 'Coffee & Drinks'
+        });
+      }
+
+      cartCount += quantity;
+      updateCartStorage();
+      updateCartDisplay();
+
+      showAlert('Item added to cart!');
+      quantityDisplay.innerText = '1';
+    }
+
+    function updateCartStorage() {
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+      localStorage.setItem('cartCount', cartCount);
+    }
+
+    function updateCartDisplay() {
+      const cartItemsContainer = document.querySelector('.cart-items');
+      const cartCountElement = document.querySelector('.cart-count');
+
+      cartCountElement.innerText = cartCount;
+      cartItemsContainer.innerHTML = '';
+
+      if (cartItems.length === 0) {
+        cartItemsContainer.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
+        document.querySelector('.cart-summary').innerHTML = `
+          <div class="cart-summary-row">
+            <span>Subtotal:</span>
+            <span>Rp 0</span>
+          </div>
+          <div class="cart-summary-row cart-total">
+            <span>Total:</span>
+            <span>Rp 0</span>
+          </div>
+        `;
+        return;
+      }
+
+      let total = 0;
+
+      cartItems.forEach((item, index) => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+
+        const cartItemElement = document.createElement('div');
+        cartItemElement.className = 'cart-item';
+        cartItemElement.innerHTML = `
+          <div class="cart-item-img">
+            <img src="${item.image}" alt="${item.name}">
+          </div>
+          <div class="cart-item-info">
+            <h4 class="cart-item-title">${item.name} (${item.category})</h4>
+            <div class="cart-item-price">Rp ${item.price.toLocaleString()}</div>
+            <div class="cart-item-quantity">
+              Qty: ${item.quantity}
+              <button class="cart-item-remove" onclick="removeFromCart(${index})">Remove</button>
+            </div>
+          </div>
+        `;
+
+        cartItemsContainer.appendChild(cartItemElement);
+      });
+
+      document.querySelector('.cart-summary').innerHTML = `
+        <div class="cart-summary-row">
+          <span>Subtotal:</span>
+          <span>Rp ${total.toLocaleString()}</span>
+        </div>
+        <div class="cart-summary-row cart-total">
+          <span>Total:</span>
+          <span>Rp ${total.toLocaleString()}</span>
+        </div>
+      `;
+    }
+
+    function removeFromCart(index) {
+      cartCount -= cartItems[index].quantity;
+      cartItems.splice(index, 1);
+      updateCartStorage();
+      updateCartDisplay();
+    }
+
+    function proceedToCheckout() {
+      if (cartItems.length === 0) {
+        showAlert('Your cart is empty!');
+        return;
+      }
+      window.location.href = 'checkout.html';
+    }
+
+    function showAlert(message) {
+      const alert = document.querySelector('.alert');
+      alert.innerText = message;
+      alert.classList.add('show');
+      setTimeout(() => {
+        alert.classList.remove('show');
+      }, 2000);
+    }
+
+    // Popups functionality
+    function openPopup(type) {
+      document.getElementById(`${type}Popup`).classList.remove('hidden');
+    }
+
+    function closePopup(type) {
+      document.getElementById(`${type}Popup`).classList.add('hidden');
+    }
+
+    function switchPopup(from, to) {
+      closePopup(from);
+      openPopup(to);
+    }
+
+    // Initialize tabs and cart display
+    document.addEventListener('DOMContentLoaded', function() {
+      const sections = document.querySelectorAll('.menu-section');
+      sections.forEach(s => {
+        if (s.id !== 'coffee') {
+          s.style.display = 'none';
+        }
+      });
+      updateCartDisplay();
+    });
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'932af0e31846bfea',t:'MTc0NTA1MDM4OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

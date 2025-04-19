@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerberroast Cafe | Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #FFD3E2;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* Header Styles */
+    header {
+      position: relative;
+      padding: 20px 0;
+    }
+    
+    .logo-container {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: #AD68A9;
+      text-decoration: none;
+    }
+    
+    .top-right-nav {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+    }
+    
+    .btn {
+      background-color: #AD68A9;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-family: 'Poppins', sans-serif;
+      display: inline-block;
+      text-align: center;
+      transition: background-color 0.3s ease;
+    }
+    
+    .btn:hover {
+      background-color: #C187BE;
+    }
+    
+    .btn-auth {
+      background-color: #FB607F;
+      color: white;
+    }
+    
+    .btn-auth:hover {
+      background-color: #ff8da5;
+    }
+
+    /* Navigation */
+    .main-nav {
+      background-color: white;
+      padding: 15px 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+    
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: #AD68A9;
+      text-decoration: none;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    
+    .nav-links a:hover {
+      color: #FB607F;
+    }
+
+    .nav-links a.active {
+      color: #FB607F;
+      font-weight: 600;
+    }
+    
+    /* Blog Header */
+    .blog-header {
+      text-align: center;
+      padding: 60px 20px 40px;
+    }
+    
+    .blog-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      color: #AD68A9;
+      margin-bottom: 20px;
+    }
+    
+    .blog-header p {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      color: #555;
+    }
+    
+    /* Blog Layout */
+    .blog-container {
+      display: flex;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      gap: 40px;
+    }
+    
+    .blog-main {
+      flex: 2;
+    }
+    
+    .blog-sidebar {
+      flex: 1;
+    }
+    
+    /* Blog Posts */
+    .blog-post {
+      background-color: white;
+      border-radius: 15px;
+      overflow: hidden;
+      margin-bottom: 40px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .blog-post:hover {
+      transform: translateY(-5px);
+    }
+    
+    .blog-post-image {
+      height: 300px;
+      background-color: #f5f5f5;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .blog-post-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .blog-post:hover .blog-post-image img {
+      transform: scale(1.05);
+    }
+    
+    .blog-post-content {
+      padding: 30px;
+    }
+    
+    .blog-post-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: #AD68A9;
+    }
+    
+    .blog-post-meta {
+      color: #999;
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .blog-tag {
+      background-color: #ffeaf3;
+      color: #FB607F;
+      padding: 3px 10px;
+      border-radius: 15px;
+      font-size: 0.8rem;
+    }
+    
+    .blog-post-excerpt {
+      margin-bottom: 20px;
+      color: #555;
+    }
+    
+    /* Sidebar Styles */
+    .sidebar-section {
+      background-color: white;
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .sidebar-title {
+      font-family: 'Playfair Display', serif;
+      color: #AD68A9;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #ffeaf3;
+    }
+    
+    .categories-list, .recent-posts-list {
+      list-style: none;
+    }
+    
+    .categories-list li, .recent-posts-list li {
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .categories-list li:last-child, .recent-posts-list li:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    
+    .categories-list a, .recent-posts-list a {
+      color: #555;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .categories-list a:hover, .recent-posts-list a:hover {
+      color: #FB607F;
+    }
+    
+    .recent-post-date {
+      display: block;
+      font-size: 0.8rem;
+      color: #999;
+      margin-top: 5px;
+    }
+    
+    .search-form {
+      display: flex;
+      border: 1px solid #eee;
+      border-radius: 25px;
+      overflow: hidden;
+    }
+    
+    .search-input {
+      flex: 1;
+      padding: 12px 15px;
+      border: none;
+      outline: none;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .search-button {
+      background-color: #FB607F;
+      color: white;
+      border: none;
+      padding: 0 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .search-button:hover {
+      background-color: #ff8da5;
+    }
+    
+    .newsletter-input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #eee;
+      border-radius: 25px;
+      margin-bottom: 15px;
+      font-family: 'Poppins', sans-serif;
+      outline: none;
+    }
+    
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 50px 0;
+    }
+    
+    .pagination-link {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-color: white;
+      color: #AD68A9;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .pagination-link:hover {
+      background-color: #AD68A9;
+      color: white;
+    }
+    
+    .pagination-link.active {
+      background-color: #FB607F;
+      color: white;
+    }
+    
+    /* Featured Blog Post */
+    .featured-blog-post {
+      background-color: white;
+      border-radius: 15px;
+      overflow: hidden;
+      margin-bottom: 40px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+    
+    .featured-label {
+      position: absolute;
+      top: 20px;
+      left: 0;
+      background-color: #FB607F;
+      color: white;
+      padding: 8px 15px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border-radius: 0 20px 20px 0;
+      z-index: 1;
+    }
+    
+    .featured-blog-image {
+      height: 400px;
+      position: relative;
+    }
+    
+    .featured-blog-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .featured-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      padding: 30px;
+      color: white;
+    }
+    
+    .featured-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    
+    .featured-meta {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+    }
+    
+    .featured-excerpt {
+      margin-bottom: 20px;
+    }
+
+    /* Popup Styles */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .popup-container {
+    position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .popup-container.hidden {
+      display: none;
+    }
+
+    .popup-box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      width: 90%;
+      max-width: 400px;
+      animation: fadeIn 0.3s ease;
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px; right: 15px;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    @keyframes fadeIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+    }
+
+    .popup-content {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      animation: slideDown 0.4s ease-in-out;
+      position: relative;
+    }
+  
+    .popup-content h2 {
+      margin-bottom: 20px;
+      color: #c45fa6;
+      text-align: center;
+    }
+  
+    .popup-content input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+  
+    .popup-content button {
+      width: 100%;
+      padding: 12px;
+      background-color: #fd5e85;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-weight: bold;
+    }
+  
+    .popup-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Footer */
+    footer {
+      background-color: #AD68A9;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      margin-top: 60px;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 30px;
+    }
+    
+    .footer-section {
+      flex: 1;
+      min-width: 250px;
+    }
+    
+    .footer-section h3 {
+      margin-bottom: 20px;
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .contact-info p {
+      margin-bottom: 10px;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    
+    .social-link {
+      width: 40px;
+      height: 40px;
+      background-color: white;
+      color: #AD68A9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    
+    .social-link:hover {
+      background-color: #FB607F;
+      color: white;
+      transform: translateY(-5px);
+    }
+    
+    .footer-bottom {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+      .blog-container {
+        flex-direction: column;
+      }
+      
+      .blog-sidebar {
+        order: -1;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .blog-header h1 {
+        font-size: 2.5rem;
+      }
+      
+      .featured-title {
+        font-size: 1.8rem;
+      }
+      
+      .blog-post-title {
+        font-size: 1.5rem;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="top-right-nav">
+      <a href="#" class="btn btn-auth" onclick="openPopup('login')">Log in</a>
+      <a href="#" class="btn btn-auth" onclick="openPopup('signup')">Sign up</a>        
+    </div>
+    
+    <div class="logo-container">
+      <a href="index.html" class="logo">Gerberroast Café</a>
+    </div>
+  </header>
+  
+  <nav class="main-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">Gerberroast</a>
+      <ul class="nav-links">
+        <li><a href="coffee-menu.html">Coffee & Drinks</a></li>
+        <li><a href="cheesecake-menu.html">Cheesecakes</a></li>
+        <li><a href="flower-shop.html">Flower Shop</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <main>
+    <section class="blog-header">
+      <h1>The Gerberroast Journal</h1>
+      <p>Explore our world of coffee, flowers, and artisan desserts through stories, tips, and inspirations.</p>
+    </section>
+    
+    <div class="blog-container">
+      <div class="blog-main">
+        <!-- Featured Blog Post -->
+        <article class="featured-blog-post">
+          <span class="featured-label">Featured</span>
+          <div class="featured-blog-image">
+            <img src="/api/placeholder/800/400" alt="Sustainable Coffee Farming" />
+            <div class="featured-overlay">
+              <h2 class="featured-title">Our Journey to Sustainable Coffee Farming</h2>
+              <div class="featured-meta">
+                <span>April 15, 2025</span>
+                <span class="blog-tag">Coffee Stories</span>
+              </div>
+              <p class="featured-excerpt">Discover how we're working with small-scale farmers in Indonesia to create environmentally friendly coffee plantations while preserving local ecosystems...</p>
+              <a href="#" class="btn">Read More</a>
+            </div>
+          </div>
+        </article>
+        
+        <!-- Regular Blog Posts -->
+        <article class="blog-post">
+          <div class="blog-post-image">
+            <img src="/api/placeholder/800/300" alt="Coffee Brewing Methods" />
+          </div>
+          <div class="blog-post-content">
+            <h2 class="blog-post-title">5 Coffee Brewing Methods to Try at Home</h2>
+            <div class="blog-post-meta">
+              <span>April 10, 2025</span>
+              <span class="blog-tag">Coffee Tips</span>
+            </div>
+            <p class="blog-post-excerpt">From pour-over to French press, discover different brewing methods that can elevate your home coffee experience. We share our baristas' expert tips to help you make the perfect cup every time.</p>
+            <a href="#" class="btn">Continue Reading</a>
+          </div>
+        </article>
+        
+        <article class="blog-post">
+          <div class="blog-post-image">
+            <img src="/api/placeholder/800/300" alt="Floral Arrangements" />
+          </div>
+          <div class="blog-post-content">
+            <h2 class="blog-post-title">The Language of Flowers: Creating Meaningful Bouquets</h2>
+            <div class="blog-post-meta">
+              <span>April 5, 2025</span>
+              <span class="blog-tag">Flower Guide</span>
+            </div>
+            <p class="blog-post-excerpt">Learn the historical meaning behind different blooms and how to craft arrangements that convey specific emotions and messages. Our head florist shares her wisdom on creating bouquets that speak volumes.</p>
+            <a href="#" class="btn">Continue Reading</a>
+          </div>
+        </article>
+        
+        <article class="blog-post">
+          <div class="blog-post-image">
+            <img src="/api/placeholder/800/300" alt="Cheesecake Recipe" />
+          </div>
+          <div class="blog-post-content">
+            <h2 class="blog-post-title">Behind the Scenes: Crafting Our Rose Petal Cheesecake</h2>
+            <div class="blog-post-meta">
+              <span>March 28, 2025</span>
+              <span class="blog-tag">Dessert Stories</span>
+            </div>
+            <p class="blog-post-excerpt">Step into our kitchen and discover the meticulous process behind our signature Rose Petal Cheesecake. From selecting the finest roses to the perfect baking technique, our pastry chef shares her secrets.</p>
+            <a href="#" class="btn">Continue Reading</a>
+          </div>
+        </article>
+        
+        <article class="blog-post">
+          <div class="blog-post-image">
+            <img src="/api/placeholder/800/300" alt="Coffee Benefits" />
+          </div>
+          <div class="blog-post-content">
+            <h2 class="blog-post-title">The Unexpected Health Benefits of Coffee Consumption</h2>
+            <div class="blog-post-meta">
+              <span>March 20, 2025</span>
+              <span class="blog-tag">Coffee & Wellness</span>
+            </div>
+            <p class="blog-post-excerpt">Recent studies have shown that moderate coffee consumption offers surprising health benefits. From antioxidants to enhanced cognitive function, we explore how your daily cup might be improving your wellbeing.</p>
+            <a href="#" class="btn">Continue Reading</a>
+          </div>
+        </article>
+        
+        <!-- Pagination -->
+        <div class="pagination">
+          <a href="#" class="pagination-link active">1</a>
+          <a href="#" class="pagination-link">2</a>
+          <a href="#" class="pagination-link">→</a>
+        </div>
+      </div>
+      
+      <div class="blog-sidebar">
+        <!-- Search Section -->
+        <div class="sidebar-section">
+          <h3 class="sidebar-title">Search</h3>
+          <form class="search-form">
+            <input type="text" class="search-input" placeholder="Search articles...">
+            <button type="submit" class="search-button">Go</button>
+          </form>
+        </div>
+        
+        <!-- Categories Section -->
+        <div class="sidebar-section">
+          <h3 class="sidebar-title">Categories</h3>
+          <ul class="categories-list">
+            <li><a href="#">Coffee Stories (12)</a></li>
+            <li><a href="#">Flower Guides (9)</a></li>
+            <li><a href="#">Dessert Recipes (7)</a></li>
+            <li><a href="#">Brewing Tips (14)</a></li>
+            <li><a href="#">Coffee & Wellness (5)</a></li>
+            <li><a href="#">Behind the Scenes (8)</a></li>
+          </ul>
+        </div>
+        
+        <!-- Recent Posts Section -->
+        <div class="sidebar-section">
+          <h3 class="sidebar-title">Recent Posts</h3>
+          <ul class="recent-posts-list">
+            <li>
+              <a href="#">The Perfect Coffee to Flower Pairings for Spring</a>
+              <span class="recent-post-date">April 12, 2025</span>
+            </li>
+            <li>
+              <a href="#">How to Care for Cut Flowers to Make Them Last Longer</a>
+              <span class="recent-post-date">April 8, 2025</span>
+            </li>
+            <li>
+              <a href="#">Introducing Our New Seasonal Menu: Spring Blossoms</a>
+              <span class="recent-post-date">April 2, 2025</span>
+            </li>
+            <li>
+              <a href="#">Coffee Cupping: Understanding Flavor Profiles</a>
+              <span class="recent-post-date">March 25, 2025</span>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Newsletter Section -->
+        <div class="sidebar-section">
+          <h3 class="sidebar-title">Subscribe</h3>
+          <p>Get our latest posts and updates delivered straight to your inbox.</p>
+          <form>
+            <input type="email" class="newsletter-input" placeholder="Your email address">
+            <button type="submit" class="btn">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Gerberroast Café</h3>
+        <p>Where Bloom Meets Brew</p>
+        <p>Bringing together the finest coffee, delightful cheesecakes, and beautiful flowers.</p>
+      </div>
+      
+      <div class="footer-section contact-info">
+        <h3>Visit Us</h3>
+        <p>Jl. Tunjungan No. 16</p>
+        <p>Surabaya, Indonesia</p>
+        <p>Phone: +62 123-4567-8910</p>
+        <p>Email: hello@gerberroast.com</p>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Opening Hours</h3>
+        <p>Monday - Friday: 9:00 AM - 10:00 PM</p>
+        <p>Saturday - Sunday: 9:00 AM - 12:00 AM</p>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Connect With Us</h3>
+        <div class="social-links">
+          <a href="#" class="social-link">IG</a>
+          <a href="#" class="social-link">TW</a>
+          <a href="#" class="social-link">YT</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2025 Gerberroast Café. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Popup container -->
+  <div id="popupContainer" class="popup-container hidden">
+    <div class="popup-box">
+      <span class="close-btn" onclick="closePopup()">×</span>
+      <div id="popupContent">Loading...</div>
+    </div>
+  </div>
+  
+  <script>
+    function openPopup(type) {
+      const popup = document.getElementById("popupContainer");
+      const content = document.getElementById("popupContent");
+  
+      fetch(type + ".html")
+        .then(res => res.text())
+        .then(html => {
+          content.innerHTML = html;
+          popup.classList.remove("hidden");
+        });
+    }
+  
+    function closePopup() {
+      document.getElementById("popupContainer").classList.add("hidden");
+    }
+  </script>
+</body>
+</html>

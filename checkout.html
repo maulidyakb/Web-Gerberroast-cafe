@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | Gerberroast Café</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #FFD3E2;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: #AD68A9;
+      text-decoration: none;
+    }
+
+    .main-nav {
+      background-color: white;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #FB607F;
+    }
+
+    .checkout-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .checkout-items {
+      flex: 2;
+      background-color: white;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .checkout-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .checkout-item-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .checkout-item-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .checkout-item-info {
+      flex: 1;
+    }
+
+    .checkout-item-title {
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    .checkout-item-price {
+      color: #FB607F;
+      font-size: 0.9rem;
+    }
+
+    .checkout-item-quantity {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 5px;
+    }
+
+    .checkout-item-remove {
+      color: #999;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: color 0.3s ease;
+    }
+
+    .checkout-item-remove:hover {
+      color: #FB607F;
+    }
+
+    .checkout-summary {
+      flex: 1;
+      background-color: white;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .checkout-summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .checkout-total {
+      font-weight: 600;
+      color: #AD68A9;
+    }
+
+    .checkout-form {
+      background-color: white;
+      border-radius: 15px;
+      padding: 20px;
+      margin-top: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .checkout-form h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: #AD68A9;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .place-order-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #FB607F;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .place-order-btn:hover {
+      background-color: #ff8da5;
+    }
+
+    .alert {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 25px;
+      z-index: 2001;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .alert.show {
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      .checkout-container {
+        flex-direction: column;
+      }
+
+      .checkout-items,
+      .checkout-summary,
+      .checkout-form {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo">Gerberroast Café</a>
+  </header>
+
+  <nav class="main-nav">
+    <div class="nav-container">
+      <ul class="nav-links">
+        <li><a href="coffee-menu.html">Coffee & Drinks</a></li>
+        <li><a href="cheesecake-menu.html">Cheesecakes</a></li>
+        <li><a href="flower-shop.html">Flower Shop</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="checkout-container">
+      <div class="checkout-items">
+        <h2 style="font-family: 'Playfair Display', serif; color: #AD68A9; margin-bottom: 20px;">Your Order</h2>
+        <div id="checkoutItems"></div>
+      </div>
+      <div class="checkout-summary">
+        <h2 style="font-family: 'Playfair Display', serif; color: #AD68A9; margin-bottom: 20px;">Order Summary</h2>
+        <div id="checkoutSummary"></div>
+        <button class="place-order-btn" onclick="placeOrder()">Place Order</button>
+      </div>
+      <div class="checkout-form">
+        <h3>Billing & Delivery Details</h3>
+        <form id="checkoutForm">
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">No. Telp</label>
+            <input type="tel" id="phone" required>
+          </div>
+          <div class="form-group">
+            <label for="address">Delivery Address</label>
+            <input type="text" id="address" required>
+          </div>
+          <div class="form-group">
+            <label for="payment">Payment Method</label>
+            <select id="payment" required>
+              <option value="" disabled selected>Select payment method</option>
+              <option value="credit">Credit Card</option>
+              <option value="bank">Bank Transfer</option>
+              <option value="cod">Cash on Delivery</option>
+            </select>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <div class="alert">Order placed successfully!</div>
+
+  <script>
+    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    let cartCount = parseInt(localStorage.getItem('cartCount')) || 0;
+
+    function updateCheckoutDisplay() {
+      const checkoutItemsContainer = document.getElementById('checkoutItems');
+      const checkoutSummaryContainer = document.getElementById('checkoutSummary');
+
+      checkoutItemsContainer.innerHTML = '';
+
+      if (cartItems.length === 0) {
+        checkoutItemsContainer.innerHTML = '<p style="color: #666;">Your cart is empty. Please add items to proceed.</p>';
+        checkoutSummaryContainer.innerHTML = `
+          <div class="checkout-summary-row">
+            <span>Subtotal:</span>
+            <span>Rp 0</span>
+          </div>
+          <div class="checkout-summary-row checkout-total">
+            <span>Total:</span>
+            <span>Rp 0</span>
+          </div>
+        `;
+        return;
+      }
+
+      let total = 0;
+
+      cartItems.forEach((item, index) => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+
+        const checkoutItemElement = document.createElement('div');
+        checkoutItemElement.className = 'checkout-item';
+        checkoutItemElement.innerHTML = `
+          <div class="checkout-item-img">
+            <img src="${item.image}" alt="${item.name}">
+          </div>
+          <div class="checkout-item-info">
+            <h4 class="checkout-item-title">${item.name} (${item.category})</h4>
+            <div class="checkout-item-price">Rp ${item.price.toLocaleString()} x ${item.quantity}</div>
+            <div class="checkout-item-quantity">
+              <span>Total: Rp ${(item.price * item.quantity).toLocaleString()}</span>
+              <button class="checkout-item-remove" onclick="removeFromCheckout(${index})">Remove</button>
+            </div>
+          </div>
+        `;
+        checkoutItemsContainer.appendChild(checkoutItemElement);
+      });
+
+      checkoutSummaryContainer.innerHTML = `
+        <div class="checkout-summary-row">
+          <span>Subtotal:</span>
+          <span>Rp ${total.toLocaleString()}</span>
+        </div>
+        <div class="checkout-summary-row checkout-total">
+          <span>Total:</span>
+          <span>Rp ${total.toLocaleString()}</span>
+        </div>
+      `;
+    }
+
+    function removeFromCheckout(index) {
+      cartCount -= cartItems[index].quantity;
+      cartItems.splice(index, 1);
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+      localStorage.setItem('cartCount', cartCount);
+      updateCheckoutDisplay();
+      showAlert('Item removed from cart!');
+    }
+
+    function placeOrder() {
+      const form = document.getElementById('checkoutForm');
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      if (cartItems.length === 0) {
+        showAlert('Your cart is empty!');
+        return;
+      }
+
+      // Simulasi pengiriman pesanan (bisa diganti dengan API call)
+      const orderDetails = {
+        fullName: document.getElementById('fullName').value,
+        phone: document.getElementById('phone').value,
+        address: document.getElementById('address').value,
+        payment: document.getElementById('payment').value,
+        items: cartItems,
+        total: cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
+      };
+      console.log('Order placed:', orderDetails); // Untuk debugging, ganti dengan API call
+
+      // Kosongkan keranjang setelah pesanan ditempatkan
+      cartItems = [];
+      cartCount = 0;
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+      localStorage.setItem('cartCount', cartCount);
+      updateCheckoutDisplay();
+      form.reset();
+      showAlert('Order placed successfully!');
+    }
+
+    function showAlert(message) {
+      const alert = document.querySelector('.alert');
+      alert.innerText = message;
+      alert.classList.add('show');
+      setTimeout(() => {
+        alert.classList.remove('show');
+      }, 2000);
+    }
+
+    document.addEventListener('DOMContentLoaded', updateCheckoutDisplay);
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'932aa19b0e8cb0f1',t:'MTc0NTA0NzE0MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

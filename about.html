@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Gerberroast Cafe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #FFD3E2;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* Header Styles */
+    header {
+      position: relative;
+      padding: 20px 0;
+    }
+    
+    .logo-container {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: #AD68A9;
+      text-decoration: none;
+    }
+    
+    .top-right-nav {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+    }
+    
+    .btn {
+      background-color: #AD68A9;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-family: 'Poppins', sans-serif;
+      display: inline-block;
+      text-align: center;
+      transition: background-color 0.3s ease;
+    }
+    
+    .btn:hover {
+      background-color: #C187BE;
+    }
+    
+    .btn-auth {
+      background-color: #FB607F;
+      color: white;
+    }
+    
+    .btn-auth:hover {
+      background-color: #ff8da5;
+    }
+    
+    /* Navigation */
+    .main-nav {
+      background-color: white;
+      padding: 15px 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+    
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: #AD68A9;
+      text-decoration: none;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    
+    .nav-links a:hover {
+      color: #FB607F;
+    }
+    
+    .nav-links a.active {
+      color: #FB607F;
+      position: relative;
+    }
+    
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #FB607F;
+    }
+
+    /* About Page Specific Styles */
+    .about-header {
+      position: relative;
+      height: 50vh;
+      background-image: url('/api/placeholder/1200/600');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 20px;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+    
+    .about-header-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .about-header-content {
+      text-align: center;
+      color: white;
+      padding: 20px;
+      z-index: 1;
+    }
+    
+    .about-header-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    
+    .about-header-content p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+    
+    .about-section {
+      background-color: white;
+      padding: 60px 20px;
+      margin: 40px 20px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: #AD68A9;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    
+    .about-content {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .about-content p {
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      color: #444;
+    }
+    
+    .story-img {
+      width: 100%;
+      border-radius: 15px;
+      margin: 30px 0;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .about-grid-item {
+      background-color: #fff9fc;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease;
+    }
+    
+    .about-grid-item:hover {
+      transform: translateY(-5px);
+    }
+    
+    .about-grid-item h3 {
+      font-family: 'Playfair Display', serif;
+      color: #AD68A9;
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+    }
+    
+    .team-section {
+      padding: 60px 20px;
+    }
+    
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .team-member {
+      background-color: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .team-member:hover {
+      transform: translateY(-10px);
+    }
+    
+    .team-img {
+      height: 300px;
+      width: 100%;
+      background-color: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .team-content {
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .team-content h3 {
+      font-family: 'Playfair Display', serif;
+      color: #AD68A9;
+      margin-bottom: 5px;
+    }
+    
+    .team-content .role {
+      color: #FB607F;
+      font-weight: 500;
+      margin-bottom: 15px;
+    }
+    
+    .team-content p {
+      color: #666;
+      font-size: 0.95rem;
+    }
+    
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px 0;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 2px;
+      height: 100%;
+      background: #FB607F;
+      transform: translateX(-50%);
+    }
+    
+    .timeline-item {
+      position: relative;
+      width: 50%;
+      padding: 20px 40px;
+      box-sizing: border-box;
+    }
+    
+    .timeline-item:nth-child(odd) {
+      left: 0;
+      text-align: right;
+    }
+    
+    .timeline-item:nth-child(even) {
+      left: 50%;
+    }
+    
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      top: 30px;
+      width: 20px;
+      height: 20px;
+      background: #FB607F;
+      border-radius: 50%;
+    }
+    
+    .timeline-item:nth-child(odd)::after {
+      right: -10px;
+    }
+    
+    .timeline-item:nth-child(even)::after {
+      left: -10px;
+    }
+    
+    .timeline-date {
+      color: #AD68A9;
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .timeline-content {
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .values-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 40px;
+    }
+    
+    .value-item {
+      background-color: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      width: 280px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    
+    .value-item:hover {
+      transform: translateY(-5px);
+    }
+    
+    .value-icon {
+      font-size: 2.5rem;
+      color: #FB607F;
+      margin-bottom: 20px;
+    }
+    
+    .value-item h3 {
+      font-family: 'Playfair Display', serif;
+      color: #AD68A9;
+      margin-bottom: 15px;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: #AD68A9;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      margin-top: 60px;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 30px;
+    }
+    
+    .footer-section {
+      flex: 1;
+      min-width: 250px;
+    }
+    
+    .footer-section h3 {
+      margin-bottom: 20px;
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .contact-info p {
+      margin-bottom: 10px;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    
+    .social-link {
+      width: 40px;
+      height: 40px;
+      background-color: white;
+      color: #AD68A9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    
+    .social-link:hover {
+      background-color: #FB607F;
+      color: white;
+      transform: translateY(-5px);
+    }
+    
+    .footer-bottom {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .about-header-content h1 {
+        font-size: 2.2rem;
+      }
+      
+      .timeline::before {
+        left: 20px;
+      }
+      
+      .timeline-item {
+        width: 100%;
+        padding-left: 50px;
+      }
+      
+      .timeline-item:nth-child(odd),
+      .timeline-item:nth-child(even) {
+        left: 0;
+        text-align: left;
+      }
+      
+      .timeline-item:nth-child(odd)::after,
+      .timeline-item:nth-child(even)::after {
+        left: 10px;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="top-right-nav">
+      <a href="#" class="btn btn-auth" onclick="openPopup('login')">Log in</a>
+      <a href="#" class="btn btn-auth" onclick="openPopup('signup')">Sign up</a>
+    </div>
+    
+    <div class="logo-container">
+      <a href="index.html" class="logo">Gerberroast Café</a>
+    </div>
+  </header>
+  
+  <nav class="main-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">Gerberroast</a>
+      <ul class="nav-links">
+        <li><a href="coffee-menu.html">Coffee & Drinks</a></li>
+        <li><a href="cheesecake-menu.html">Cheesecakes</a></li>
+        <li><a href="flower-shop.html">Flower Shop</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="about.html" class="active">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <main>
+    <section class="about-header">
+      <div class="about-header-overlay">
+        <div class="about-header-content">
+          <h1>Our Story</h1>
+          <p>From a small flower shop to Jakarta's favorite floral coffee destination</p>
+        </div>
+      </div>
+    </section>
+    
+    <section class="about-section">
+      <h2 class="section-title">The Bloom & Brew Journey</h2>
+      <div class="about-content">
+        <p>Gerberroast Café began as a dream shared between two sisters, Maya and Lina Surya, who wanted to create a space where their two passions could intertwine. Maya, a barista trained in Melbourne, Australia, and Lina, a florist with a background in botany, combined their talents to create something unique in Jakarta's bustling café scene.</p>
+        
+        <p>What started as a small flower shop in 2018 with a coffee counter gradually evolved into a full-fledged café experience where the aroma of freshly brewed coffee mingles with the delicate scent of seasonal blooms. The name "Gerberroast" is a playful blend of "gerbera" (the sisters' favorite daisy variety) and "roast" (representing their dedication to quality coffee).</p>
+        
+        <img src="/api/placeholder/800/400" alt="Gerberroast Interior" class="story-img">
+        
+        <p>In 2020, we expanded our menu to include artisanal cheesecakes, inspired by our grandmother's recipes but infused with floral elements that complement our coffee offerings. Each cheesecake is handcrafted daily using locally-sourced ingredients whenever possible, supporting Indonesian farmers and producers.</p>
+        
+        <p>Today, Gerberroast Café stands as a testament to the sisters' vision of creating a harmonious space where people can connect with nature while enjoying exceptional coffee and desserts. Our interior reflects this philosophy, with vintage furniture, lush greenery, and natural light creating a tranquil atmosphere away from Jakarta's urban rush.</p>
+      </div>
+    </section>
+    
+    <section class="about-section">
+      <h2 class="section-title">Our Philosophy</h2>
+      <div class="about-content">
+        <p>At Gerberroast, we believe in the power of small moments of joy and connection. Our philosophy is built on three core principles:</p>
+        
+        <div class="values-container">
+          <div class="value-item">
+            <div class="value-icon">🌱</div>
+            <h3>Sustainability</h3>
+            <p>We're committed to eco-friendly practices, from our biodegradable packaging to composting coffee grounds and floral waste. We partner with local farmers who share our environmental values.</p>
+          </div>
+          
+          <div class="value-item">
+            <div class="value-icon">🌿</div>
+            <h3>Creativity</h3>
+            <p>We constantly explore new flavors and combinations, pushing boundaries while honoring traditional techniques. Our seasonal menu reflects our creative approach to both coffee and flora.</p>
+          </div>
+          
+          <div class="value-item">
+            <div class="value-icon">🌺</div>
+            <h3>Community</h3>
+            <p>We strive to create a welcoming space for everyone, hosting workshops, poetry readings, and other events that bring people together in celebration of coffee, flowers, and connection.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="about-section team-section">
+      <h2 class="section-title">Meet Our Team</h2>
+      <div class="team-grid">
+        <div class="team-member">
+          <div class="team-img">
+            <img src="images/cewe pink.jpg" alt="Maulidya Khairina Balqis" />
+          </div>
+          <div class="team-content">
+            <h3>Maulidya Khairina Balqis</h3>
+            <p class="role">Co-Founder & Head Barista</p>
+            <p>With training from Melbourne's finest coffee academies, Maya brings international coffee expertise with a distinctly Indonesian touch.</p>
+          </div>
+        </div>
+        
+        <div class="team-member">
+          <div class="team-img">
+            <img src="images/cewe biru.jpg" alt="Maulidya Khairina Balqis" />
+          </div>
+          <div class="team-content">
+            <h3>Maulidya Khairina Balqis</h3>
+            <p class="role">Co-Founder & Master Florist</p>
+            <p>Lina's botanical background and artistic eye create the stunning floral arrangements that have become our signature aesthetic.</p>
+          </div>
+        </div>
+        
+        <div class="team-member">
+          <div class="team-img">
+            <img src="images/cewe coklat.jpg" alt="Defina Aulia Salsabila" />
+          </div>
+          <div class="team-content">
+            <h3>Defina Aulia Salsabila</h3>
+            <p class="role">Events Coordinator</p>
+            <p>Ayu brings our community together through thoughtfully curated workshops, poetry nights, and seasonal celebrations.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="about-section">
+      <h2 class="section-title">What Sets Us Apart</h2>
+      <div class="about-grid">
+        <div class="about-grid-item">
+          <h3>Floral Infusions</h3>
+          <p>We're one of the first cafés in Jakarta to expertly incorporate edible flowers and floral essences into our coffee and desserts, creating unique flavor profiles you won't find elsewhere.</p>
+        </div>
+        
+        <div class="about-grid-item">
+          <h3>Bean-to-Cup Philosophy</h3>
+          <p>We work directly with Indonesian coffee farmers, primarily from Sumatra, Java, and Sulawesi, ensuring fair compensation while securing the highest quality beans.</p>
+        </div>
+        
+        <div class="about-grid-item">
+          <h3>Seasonal Approach</h3>
+          <p>Our menu evolves with the seasons, highlighting the best Indonesian produce and flowers throughout the year, ensuring freshness and sustainability.</p>
+        </div>
+      </div>
+    </section>
+    
+    <section class="about-section">
+      <h2 class="section-title">Visit Us</h2>
+      <div class="about-content" style="text-align: center;">
+        <p>We invite you to experience the unique harmony of flavors and fragrances at Gerberroast Café. Whether you're seeking a tranquil space to work, a venue for a special celebration, or simply a moment of respite with exceptional coffee and treats, our doors are open.</p>
+        <a href="contact.html" class="btn">Get in Touch</a>
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Gerberroast Café</h3>
+        <p>Where Bloom Meets Brew</p>
+        <p>Bringing together the finest coffee, delightful cheesecakes, and beautiful flowers.</p>
+      </div>
+      
+      <div class="footer-section contact-info">
+        <h3>Visit Us</h3>
+        <p>Jl. Tunjungan No. 16</p>
+        <p>Surabaya, Indonesia</p>
+        <p>Phone: +62 123-4567-8910</p>
+        <p>Email: hello@gerberroast.com</p>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Opening Hours</h3>
+        <p>Monday - Friday: 9:00 AM - 10:00 PM</p>
+        <p>Saturday - Sunday: 9:00 AM - 12:00 AM</p>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Connect With Us</h3>
+        <div class="social-links">
+          <a href="#" class="social-link">IG</a>
+          <a href="#" class="social-link">TW</a>
+          <a href="#" class="social-link">YT</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2025 Gerberroast Café. All rights reserved.</p>
+    </div>
+  </footer>
+  
+  <!-- Popup container -->
+  <div id="popupContainer" class="popup-container hidden">
+    <div class="popup-box">
+      <span class="close-btn" onclick="closePopup()">×</span>
+      <div id="popupContent">Loading...</div>
+    </div>
+  </div>
+  
+  <script>
+    function openPopup(type) {
+      const popup = document.getElementById("popupContainer");
+      const content = document.getElementById("popupContent");
+  
+      fetch(type + ".html")
+        .then(res => res.text())
+        .then(html => {
+          content.innerHTML = html;
+          popup.classList.remove("hidden");
+        });
+    }
+  
+    function closePopup() {
+      document.getElementById("popupContainer").classList.add("hidden");
+    }
+  </script>
+</body>
+</html>
